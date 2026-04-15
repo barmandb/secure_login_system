@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Login</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f172a, #1d4ed8, #0f172a);
+            color: #fff;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 420px;
+            background: rgba(15, 23, 42, 0.92);
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+        }
+
+        h1 {
+            margin: 0 0 10px;
+            text-align: center;
+        }
+
+        .sub {
+            text-align: center;
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            margin: 15px 0 10px;
+            color: #bfdbfe;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .primary { background: #2563eb; color: white; }
+        .secondary { background: #0ea5e9; color: white; }
+        .muted { background: #334155; color: white; }
+
+        hr {
+            border: none;
+            border-top: 1px solid #334155;
+            margin: 15px 0;
+        }
+
+        .flash {
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #22c55e;
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>Secure Access</h1>
+    <p class="sub">Login, register, OTP verify, and reset password</p>
+
+    <!-- 🔥 FLASH MESSAGES (IMPORTANT) -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- LOGIN -->
+    <div class="section-title">Login</div>
+    <form action="/login" method="post">
+        <input type="email" name="username" placeholder="Email address" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button class="primary">Login</button>
+    </form>
+
+    <hr>
+
+    <!-- REGISTER -->
+    <div class="section-title">Create account</div>
+    <form action="/register" method="post">
+        <input type="email" name="username" placeholder="New email" required>
+        <input type="password" name="password" placeholder="New password" required>
+        <button class="secondary">Register</button>
+    </form>
+
+    <hr>
+
+    <!-- RESET -->
+    <div class="section-title">Forgot password</div>
+    <form action="/reset_request" method="post">
+        <input type="email" name="email" placeholder="Enter registered email" required>
+        <button class="muted">Send reset link</button>
+    </form>
+
+</div>
+
+</body>
+</html>
